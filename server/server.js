@@ -7,7 +7,7 @@ function start() {
   function onRequest(request, response) {
     response.writeHead(200, {"Content-Type": "text/html"});
     var info = tweet.getTweetInfo();
-    response.write(info);
+    response.write(JSON.stringify(info));
     response.end();
   }
 
