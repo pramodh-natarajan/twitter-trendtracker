@@ -4,32 +4,51 @@ var config = require('./config')
 var T = new Twit(config);
 
 /* Get fresh tweets for every 30 seconds */
-var timeout = 10000;
+var timeout = 30000;
 
-var maxid = function() {
+/* Tweets since the tweet with this id */
+var since = 1;
+
+var tweetInfo = {
+  count:0,
+  period:0
+};
+
+function dateMillis() {
   var d = new Date(Date.now());
   return d.getTime();
 }
 
-setInterval(function() {
+/* This function runs seperately and looks for new tweets in given timeout interval */
+function searchTweets() {
+  setInterval(function() {
+    console.log('SEARCHING...');
+    /* Parameters for search */
+    var params = {
+        q: 'Chandigarh', since_id: since, count: 100, result_type:'recent'
+    };
 
-  /* Parameters for search */
-  var params = {
-      q: '#onedirectionimsorryfor', since_id: maxid, count: 100, result_type:'recent'
-  };
+    /* Get the tweets based on parameters */
+    T.get('search/tweets', params, function(err, data, response) {
+      if(err) console.log(err);
+      var statuses = data.statuses;
 
-  /* Get the tweets based on parameters */
-  T.get('search/tweets', params, function(err, data, response) {
-    if(err) console.log(err);
-    var statuses = data.statuses;
+      /* Check if there are any fresh tweets available */
+      if(statuses.length > 0)    {
+        since = statuses[0].id;
+      }
 
-    if(statuses.length > 0)    {
-      //var md = new Date(statuses[0].created_at);
-      maxid = statuses[0].id;
-      console.log(statuses[0].created_at);
-    }
-    //for(var i=0;i<statuses.length;i++) {
-    //}
-    console.log(statuses.length+ '\n');
-  });
-}, timeout);
+      /* Update return parameters */
+      tweetInfo.count = statuses.length;
+      tweetInfo.period = dateMillis();
+    });
+  }, timeout);
+}
+
+/* This function returns the latest stats */
+function getTweetInfo() {
+  return tweetInfo;
+}
+
+exports.searchTweets = searchTweets;
+exports.getTweetInfo = getTweetInfo;
