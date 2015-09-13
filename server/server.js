@@ -1,6 +1,5 @@
 var http = require("http");
 var tweet = require("./trend-tracker");
-var io = require('socket.io');
 var fs = require('fs');
 
 function start() {
@@ -29,7 +28,13 @@ function start() {
   }
 
   var server = http.createServer(onRequest).listen(8888);
-  io.listen(server);
+
+  var io = require('socket.io')(server);
+  io.on('connection', function(socket){
+    setInterval(function(){
+      socket.emit('message',  {'message': tweet.getTweetInfo()});
+    },30000);
+  });
 }
 
 exports.start = start;
