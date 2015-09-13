@@ -4,7 +4,7 @@ var config = require('./config')
 var T = new Twit(config);
 
 /* Get fresh tweets for every 30 seconds */
-var timeout = 10000;
+var timeout = 30000;
 
 /* Tweets since the tweet with this id */
 var since = 1;
