@@ -1,14 +1,24 @@
 # Twitter Trend Tracker
 
-- This application tracks a twitter search term and visualizes it's popularity over a period of time.
+A real-time twitter search term tracker using node.js, socket.io and d3.js
 
 Server
-------
-* The server is built using node.js ('twit' package). 
-* It continuously finds out the number of tweets made for a given search term over a period of 30 seconds.
-* A JSON array with the tweet counts and time period is sent as a response.
+======
+* The server is built using [node.js](https://nodejs.org/) and [socket.io](http://socket.io/).
+  Files
+  -----
+  * trend-tracker.js uses the [twit](https://github.com/ttezel/twit) module to continuously monitor what's going on with a twitter search term for every 30 seconds
+  * server.js is responsible for starting up trend-tracker and serving clients using socket.io
 
 Client
-------
-* The client visualization is built using D3.js
-* It processes the JSON array sent from the server and uses it to visualize (track) the trend.
+======
+* The client visualization is built using [D3.js](http://d3js.org/) and socket.io.
+* The index file draws the visualization based on received JSON object from the server.
+
+# Usage
+
+Just run index.js using node and see the visualization on the client (still under construction).
+
+```
+node server/index.js
+```
