@@ -3,7 +3,7 @@ var tweet = require("./trend-tracker");
 var fs = require('fs');
 
 function start() {
-
+  console.log('Server has started.');
   tweet.searchTweets(); // Start tracking the tweets
 
   function onRequest(request, response) {

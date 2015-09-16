@@ -21,7 +21,7 @@ function searchTweets() {
   setInterval(function() {
     /* Parameters for search */
     var params = {
-        q: '#Mecca', since_id: since, count: 100, result_type:'recent'
+        q: '#BadMovieMashups', since_id: since, count: 100, result_type:'recent'
     };
 
     /* Get the tweets based on parameters */
@@ -34,11 +34,13 @@ function searchTweets() {
         since = statuses[0].id;
       }
 
-      tweetQueue.push({count:statuses.length, period:dateMillis()});
+      tweetQueue.push({count:statuses.length, period:tweetQueue.length});
       if(tweetQueue.length > 20) {
         tweetQueue.shift();
+        for(var i=0; i<tweetQueue.length; i++) {
+          tweetQueue[i].period--;
+        }
       }
-      console.log(JSON.stringify(tweetQueue));
     });
   }, timeout);
 }
