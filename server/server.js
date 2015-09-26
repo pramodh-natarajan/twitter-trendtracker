@@ -7,6 +7,8 @@ function start() {
   tweet.searchTweets(); // Start tracking the tweets
 
   function onRequest(request, response) {
+    tweet.setQuery('#HappyBirthdayMMS'); // Set the query parameter
+    
     var responsefile = __dirname;
     responsefile = responsefile.substring(0, responsefile.length - 6) + 'client/index.html'; // Serve this file to the browser when request is made
     fs.readFile(responsefile,'utf8', function(error, data){
