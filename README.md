@@ -16,7 +16,7 @@ Files
 
 # Usage
 
-Just clone this repository, run index.js using node and see the visualization on the client (still under construction).
+Just clone this repository, run index.js using node and see the visualization on the client at http://localhost:8888/
 
 ```
 node server/index.js
