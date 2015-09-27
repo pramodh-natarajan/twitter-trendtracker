@@ -4,7 +4,7 @@ var config = require('./config')
 var T = new Twit(config);
 
 /* Get fresh tweets for every 30 seconds */
-var timeout = 30000;
+var timeout = 10000;
 var query = '';
 
 /* Tweets since the tweet with this id */
@@ -21,11 +21,9 @@ function dateMillis() {
 function searchTweets() {
   setInterval(function() {
     /* Parameters for search */
-    console.log(query);
-
     if(query != '') {
       var params = {
-          q: '#BadMovieMashups', since_id: since, count: 100, result_type:'recent'
+          q: query, since_id: since, count: 100, result_type:'recent'
       };
 
       /* Get the tweets based on parameters */
@@ -53,11 +51,20 @@ function searchTweets() {
 function setQuery(q) {
   query = q;
 }
+
+function getQuery() {
+  return query;
+}
 /* This function returns the latest stats */
 function getTweetInfo() {
   return tweetQueue;
+}
+function clearTweetQueue() {
+  tweetQueue = [];
 }
 
 exports.searchTweets = searchTweets;
 exports.getTweetInfo = getTweetInfo;
 exports.setQuery = setQuery;
+exports.getQuery = getQuery;
+exports.clearTweetQueue = clearTweetQueue;
