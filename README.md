@@ -30,8 +30,13 @@ Config file format
 
 # Usage
 
-Just clone this repository, run index.js using node and see the visualization on the client at http://localhost:8888/
+  * Clone this repository
+  * Run index.js using node 
 
-```
-node server/index.js
-```
+  ```
+  node twitter-trendtracker/server/index.js
+  ```
+  * Open http://localhost:8888/ in a browser.
+  * Enter the query to track into the text box on the browser.
+  * See the tweet count for that search term getting drawn continuously on the graph below.
+
